@@ -22,7 +22,8 @@ class BRHandler extends DOMHandler {
 	): ?Node {
 		if ( $state->singleLineContext->enforced()
 			 || ( DOMDataUtils::getDataParsoid( $node )->stx ?? null ) === 'html'
-			 || DOMCompat::nodeName( $node->parentNode ) !== 'p'
+			 // Always allow <br/> in P tags
+			 || DOMCompat::nodeName( $node->parentNode ) === 'p'
 		) {
 			// <br/> has special newline-based semantics in
 			// parser-generated <p><br/>.. HTML
